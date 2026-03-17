@@ -1,27 +1,46 @@
+"""
+Number Guessing Game
+Author: Aniket M. Warghat
+Description: A simple CLI game where the user guesses a random number 
+between 1-100 within a limited number of attempts.
+"""
+
 import random as rm
 
-number = rm.randint(1,100)
-active = True
-counter = 0
-number_attempts = 15
+# Initialize game constants and variables
+number = rm.randint(1, 100)      # The target number to guess
+active = True                    # Flag to control the game loop
+counter = 0                      # Tracks the number of guesses made
+number_attempts = 15             # Maximum allowed attempts
 
 while active and counter < number_attempts:
-  try:
-    guess = int(input("Enter Value Between 1-100: "))
-    counter+=1
-    if guess > number:
-      attempt = number_attempts-counter
-      print(f"guess lower, attempt left {attempt}")
-    elif guess < number:
-      attempt = number_attempts-counter
-      print(f"guess higher, attempt left {attempt}")
-    elif guess == number:
-      print(f"Correct Guess Congratulation ! The Number is {number} you guessed it on {counter} attempts")
-      active = False
+    try:
+        # Prompt user and increment the attempt counter
+        guess = int(input("Enter Value Between 1-100: "))
+        counter += 1
+        
+        # Check if the guess is too high
+        if guess > number:
+            attempt = number_attempts - counter
+            print(f"Guess lower, attempts left: {attempt}")
+            
+        # Check if the guess is too low
+        elif guess < number:
+            attempt = number_attempts - counter
+            print(f"Guess higher, attempts left: {attempt}")
+            
+        # Success condition: Guess matches the random number
+        elif guess == number:
+            print(f"Correct Guess! Congratulations! The number was {number}. "
+                  f"You guessed it in {counter} attempts.")
+            active = False # Break the loop
 
-  except:
-      print("Enter valid number!")
+    except ValueError:
+        # Handles non-integer inputs to prevent the script from crashing
+        print("Invalid input! Please enter a whole number.")
 
-if counter == number_attempts and guess!=number:
-      active = False
-      print(f"Game Over! The Number is {number} You are Out of Attempts {counter}/{counter}")
+# Final check: If the loop ended because attempts ran out
+if counter == number_attempts and guess != number:
+    active = False
+    print(f"Game Over! The number was {number}. "
+          f"You are out of attempts ({counter}/{number_attempts}).")

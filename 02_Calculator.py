@@ -1,81 +1,88 @@
-def add (x,y):
-    return x+y
+"""
+Simple CLI Calculator with History
+Author: Aniket M. Warghat
+Description: A modular calculator that performs basic arithmetic operations 
+and maintains a log of session calculations.
+"""
 
-def subtract (x,y):
-    return x-y
+# --- Arithmetic Functions ---
 
-def multiply (x,y):
-    return x*y
+def add(x, y):
+    """Returns the sum of two numbers."""
+    return x + y
 
-def divide (x,y):
-        if y==0:
-            return ("Error 0 is not divisible, please enter valid number")
-        else:
-            return x/y
+def subtract(x, y):
+    """Returns the difference of two numbers."""
+    return x - y
 
+def multiply(x, y):
+    """Returns the product of two numbers."""
+    return x * y
 
-history = []
+def divide(x, y):
+    """
+    Returns the quotient of two numbers.
+    Includes a safety check for division by zero.
+    """
+    if y == 0:
+        return "Error: Division by zero is undefined."
+    else:
+        return x / y
+
+# --- Main Program ---
+
+history = []  # List to store calculation strings for session logging
 
 while True:
+    print("\n" + "-"*13 + " Simple Calculator " + "-"*13)
+    print("1. Add | 2. Subtract | 3. Multiply | 4. Divide | 5. History | 6. Exit")
 
-    print("-------------Simple Calculator-------------")
-    print("1.Add | 2.Subtract | 3.Multiply | 4.Divide | 5.History | 6.Exit")
-
-    op = (input("Enter Option 1-6 : "))
+    op = input("Enter Option (1-6): ")
 
     try:
         op = int(op)
 
-        if op < 5:
-
-            num1 = float(input("Enter Num1 : "))
-            num2 = float(input("Enter Num2 : "))
+        # Operations 1-4: Basic Math
+        if 1 <= op <= 4:
+            num1 = float(input("Enter Num1: "))
+            num2 = float(input("Enter Num2: "))
 
             if op == 1:
-                result = add(num1,num2)
+                result = add(num1, num2)
                 output = f"{num1} + {num2} = {result}"
-                print(output)
-                history.append(output)
-
             elif op == 2:
-                result = subtract(num1,num2)
+                result = subtract(num1, num2)
                 output = f"{num1} - {num2} = {result}"
-                print(output)
-                history.append(output)
-
             elif op == 3:
-                result = multiply(num1,num2)
+                result = multiply(num1, num2)
                 output = f"{num1} * {num2} = {result}"
-                print(output)
+            elif op == 4:
+                result = divide(num1, num2)
+                output = f"{num1} / {num2} = {result}"
+
+            print(f"Result: {result}")
+            
+            # Only log to history if it wasn't a division error string
+            if isinstance(result, (int, float)):
                 history.append(output)
 
-            elif op == 4:
-                if num2!=0:   
-                    result = divide(num1,num2)
-                    output = f"{num1} / {num2} = {result}"
-                    print(output)
-                    history.append(output)
-                else:
-                    print(divide(num1,num2))
-
+        # Operation 5: Display Logged History
         elif op == 5:
-            counter = 0
-            
             if not history:
                 print("No calculations yet!")
             else:
-                print("------Calculation History------")
-                for i in history:
-                    counter+=1
-                    print(f"{counter}. {i}")
+                print("\n------ Calculation History ------")
+                for index, item in enumerate(history, 1):
+                    print(f"{index}. {item}")
 
+        # Operation 6: Terminate Program
         elif op == 6:
-            print("Exiting Program......")
+            print("Exiting Program... Goodbye!")
             break 
 
         else:
-            print(f"{op} is not the valid option.")
+            print(f"'{op}' is not a valid menu option.")
 
-    except:
-        print(f"Error, due to '{op}' try again.")
-
+    except ValueError:
+        # Catches cases where input is not a number
+        print(f"Input Error: Please enter a valid numerical value.")
