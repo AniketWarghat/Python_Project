@@ -1,5 +1,5 @@
 # --- STEP 1: DATA PREPARATION ---
-user_text = "The bridge is strong, and the bridge is wide."
+user_text = str(input("Enter The Paragraph : "))
 
 # Normalize text: lower case and remove punctuation to avoid duplicate keys like "Bridge" vs "bridge"
 user_text = user_text.lower().replace(",", " ").replace(".", " ")
