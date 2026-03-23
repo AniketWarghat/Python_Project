@@ -12,7 +12,8 @@ import csv
 print("Welcome to Student Score Manager! \n")
 
 # --- Setup File Path ---
-folder = "05_Reports"
+py_dir = os.path.dirname(os.path.abspath(__file__))
+folder = os.path.join(py_dir, "05_Reports")
 filename = "Student_grade.csv"
 full_path = os.path.join(folder, filename)
 
