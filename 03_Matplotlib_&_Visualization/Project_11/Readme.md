@@ -1,4 +1,4 @@
-### TCS Stock Price Analysis
+# TCS Stock Price Analysis
 
 - Dataset: TCS.NS live data Vai yfinance (2024-2026)
 - Tools: python, pandas, matplotlib, yfinance, os, jupyter notebook.
